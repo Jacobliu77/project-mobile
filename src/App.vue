@@ -1,8 +1,6 @@
 <template>
   <div id="app">
     <!-- 一级路由视图区 -->
-    <van-cell title="选择单个日期" :value="date" @click="show = true" />
-    <van-calendar v-model="show" @confirm="onConfirm" />
     <router-view />
   </div>
 </template>
@@ -11,8 +9,7 @@ export default {
   name: 'App',
   data () {
     return {
-      date: '',
-      show: false
+
     }
   },
 

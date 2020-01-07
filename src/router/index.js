@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import login from '@/views/login'
 
 Vue.use(VueRouter)
 // 配置路由
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'home',
-  //   component: Home
-  // },
+  {
+    path: '/login',
+    component: login
+  }
   // //路由表配置--按需加载
   // {
   //   path: '/about',
