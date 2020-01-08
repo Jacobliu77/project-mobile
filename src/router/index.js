@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import login from '@/views/login'
+import home from '@/views/home'
 
 Vue.use(VueRouter)
 // 配置路由
@@ -8,6 +9,10 @@ const routes = [
   {
     path: '/login',
     component: login
+  },
+  {
+    path: '/home',
+    component: home
   }
   // //路由表配置--按需加载
   // {

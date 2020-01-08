@@ -10,7 +10,8 @@ import {
   Icon,
   Row,
   Col,
-  Toast
+  Toast,
+  CountDown
 } from 'vant'
 
 Vue.use(Button)
@@ -23,3 +24,4 @@ Vue.use(Button)
   .use(Row)
   .use(Col)
   .use(Toast)
+  .use(CountDown)
