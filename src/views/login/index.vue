@@ -5,18 +5,21 @@
         title="登录"
         left-arrow
     />
-    <van-cell-group>
+<ValidationObserver>
 <van-row type="flex" align="center">
  <van-col span="4">
 <i class="iconfont icon-mobile" ></i>
 </van-col>
 <van-col span="20">
+  <ValidationProvider name="手机号" rules="required" v-slot="{ errors }">
   <van-field
     v-model="user.mobile"
     required
     clearable
     placeholder="请输入手机号"
   />
+  <span>{{errors[0]}}</span>
+  </ValidationProvider>
   </van-col>
   </van-row>
   <van-row type="flex" align="center">
@@ -24,6 +27,7 @@
   <i class="iconfont icon-ecurityCode"></i>
   </van-col>
 <van-col span="20">
+  <ValidationProvider>
   <van-field
     v-model="user.code"
     placeholder="请输入验证码"
@@ -33,7 +37,8 @@
   v-if="isCountDownShow"
   slot="button"
   format=" ss 秒后可重新发送"
-  :time="1000*60" />
+  :time="1000*60"
+  @finish="this.isCountDownShow=false" />
    <van-button
     v-else
     slot="button"
@@ -41,9 +46,10 @@
     type="primary"
     @click="onsmscode">发送验证码</van-button>
   </van-field>
+  </ValidationProvider>
    </van-col>
   </van-row>
-</van-cell-group>
+</ValidationObserver>
 <div class="login-btn-container">
 <van-button class="login-btn" @click="onLogin" type="info">登录</van-button>
 </div>
