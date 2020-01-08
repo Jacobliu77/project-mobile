@@ -5,20 +5,19 @@
         title="登录"
         left-arrow
     />
-<ValidationObserver>
+<ValidationObserver ref="myloginform">
 <van-row type="flex" align="center">
  <van-col span="4">
 <i class="iconfont icon-mobile" ></i>
 </van-col>
 <van-col span="20">
-  <ValidationProvider name="手机号" rules="required" v-slot="{ errors }">
+  <ValidationProvider name="手机号" rules="required|mobile">
   <van-field
     v-model="user.mobile"
     required
     clearable
     placeholder="请输入手机号"
   />
-  <span>{{errors[0]}}</span>
   </ValidationProvider>
   </van-col>
   </van-row>
@@ -27,7 +26,7 @@
   <i class="iconfont icon-ecurityCode"></i>
   </van-col>
 <van-col span="20">
-  <ValidationProvider>
+  <ValidationProvider name="验证码" rules="required|code">
   <van-field
     v-model="user.code"
     placeholder="请输入验证码"
@@ -55,7 +54,6 @@
 </div>
 </div>
 </template>
-
 <script>
 // 引入请求模块
 import { login, smscode } from '@/api/user'
@@ -73,6 +71,11 @@ export default {
   },
   methods: {
     async onLogin () {
+      const success = await this.$refs.myloginform.validate()
+      if (!success) {
+        console.log('验证失败')
+        return
+      }
       this.$toast.loading({
         duration: 0, // 持续时间，0表示持续展示不停止
         forbidClick: true, // 是否禁止背景点击
