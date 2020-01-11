@@ -11,7 +11,9 @@ import {
   Row,
   Col,
   Toast,
-  CountDown
+  CountDown,
+  Tabbar,
+  TabbarItem
 } from 'vant'
 
 Vue.use(Button)
@@ -25,3 +27,5 @@ Vue.use(Button)
   .use(Col)
   .use(Toast)
   .use(CountDown)
+  .use(Tabbar)
+  .use(TabbarItem)
