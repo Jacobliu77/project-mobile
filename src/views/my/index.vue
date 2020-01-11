@@ -37,7 +37,7 @@
     <!-- /已登录：用户信息 -->
 
     <!-- 未登录 -->
-    <div v-else class="not-login">
+    <div v-else class="not-login" @click="$router.push('/login')">
       <div class="mobile"></div>
       <div class="text">点击登录</div>
     </div>
