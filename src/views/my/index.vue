@@ -9,27 +9,27 @@
             class="avatar"
             round
             fit="cover"
-            src="https://img.yzcdn.cn/vant/cat.jpeg"
+             :src="user.photo"
           />
-          <div class="title">头条世界</div>
+           <div class="title">{{ user.name }}</div>
         </div>
         <van-button round size="mini">编辑资料</van-button>
       </div>
       <van-grid class="data-info" :border="false">
         <van-grid-item>
-          <span class="count">123</span>
+         <span class="count">{{ user.art_count }}</span>
           <span class="text">头条</span>
         </van-grid-item>
         <van-grid-item>
-          <span class="count">123</span>
+           <span class="count">{{ user.follow_count }}</span>
           <span class="text">关注</span>
         </van-grid-item>
         <van-grid-item>
-          <span class="count">123</span>
+           <span class="count">{{ user.fans_count }}</span>
           <span class="text">粉丝</span>
         </van-grid-item>
         <van-grid-item>
-          <span class="count">123</span>
+           <span class="count">{{ user.like_count }}</span>
           <span class="text">获赞</span>
         </van-grid-item>
       </van-grid>
@@ -73,16 +73,28 @@
 </template>
 
 <script>
+import { getUserInfo } from '@/api/user'
 export default {
   data () {
     return {
-      islogin: false
+      islogin: false,
+      user: {} // 用户信息
     }
   },
   methods: {
     gettoken () {
       if (this.$store.state.user) {
         this.islogin = true
+        this.loadUser()
+      }
+    },
+    async loadUser () {
+      try {
+        const { data } = await getUserInfo()
+        this.user = data.data
+      } catch (err) {
+        console.log(err)
+        this.$toast('获取数据失败')
       }
     }
   },
@@ -90,7 +102,6 @@ export default {
     this.gettoken()
   }
 }
-
 </script>
 
 <style lang="less" scoped>
