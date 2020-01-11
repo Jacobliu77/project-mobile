@@ -36,7 +36,7 @@
   v-if="isCountDownShow"
   slot="button"
   format=" ss 秒后可重新发送"
-  :time="1000*10"
+  :time="1000*60"
   @finish="isCountDownShow = false" /> <!-- 在倒计时结束后触发隐藏 -->
    <van-button
     v-else
@@ -97,9 +97,13 @@ export default {
         message: '登录中...' // 提示消息
       })
       try {
-        const res = login(this.user)
-        console.log('登录成功', res)
+        // await 不能忘记！！！
+        const res = await login(this.user)
+        this.$store.commit('setUser', res.data.data)
+        // 提示登录成功
         this.$toast.success('登录成功')
+        // 跳转到首页
+        this.$router.push('/')
       } catch (err) {
         this.$toast.fail('登录失败，手机号或验证码错误')
       }
