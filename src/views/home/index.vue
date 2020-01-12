@@ -23,6 +23,16 @@
       </van-tab>
     </van-tabs>
     <!-- /频道列表 -->
+    <!-- 频道编辑 -->
+    <van-popup
+    v-model="isShowEdit"
+    closeable
+    close-icon-position="top-left"
+    round
+    position="bottom"
+    :style="{ height: '90%' }"
+    />
+<!-- /频道编辑 -->
   </div>
 </template>
 
@@ -36,7 +46,8 @@ export default {
   data () {
     return {
       active: 0,
-      userChannels: []
+      userChannels: [],
+      isShowEdit: false
     }
   },
   methods: {
