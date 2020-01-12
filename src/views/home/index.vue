@@ -37,7 +37,9 @@
     round
     position="bottom"
     :style="{ height: '90%' }"
-    />
+    >
+    <ChannelEdit/>
+    </van-popup>
 <!-- /频道编辑 -->
   </div>
 </template>
@@ -45,9 +47,11 @@
 <script>
 import { getUserChannels } from '@/api/user'
 import ArticleList from './components/article-list'
+import ChannelEdit from './components/channel-edit'
 export default {
   components: {
-    ArticleList
+    ArticleList,
+    ChannelEdit
   },
   data () {
     return {
