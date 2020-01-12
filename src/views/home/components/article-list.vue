@@ -1,18 +1,22 @@
 <template>
   <!-- 文章列表 -->
+  <!--
+    v-model="isLoading" 控制下拉刷新的 loading
+    @refresh 当下拉刷新的时候它会触发该事件
+   -->
   <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
-        <van-list
-          v-model="loading"
-          :finished="finished"
-          finished-text="没有更多了"
-          @load="onLoad"
-        >
-          <van-cell
-            v-for="(article, index) in list"
-            :key="index"
-            :title="article.title"
-          />
-        </van-list>
+    <van-list
+      v-model="loading"
+      :finished="finished"
+      finished-text="没有更多了"
+      @load="onLoad"
+    >
+      <van-cell
+        v-for="(article, index) in list"
+        :key="index"
+        :title="article.title"
+      />
+    </van-list>
   </van-pull-refresh>
   <!-- /文章列表 -->
 </template>
@@ -24,6 +28,7 @@ export default {
   components: {},
   props: {
     channel: {
+      // String、Number、Array、Object、Boolean
       type: Object,
       required: true
     }
@@ -37,6 +42,10 @@ export default {
       timestamp: null
     }
   },
+  computed: {},
+  watch: {},
+  created () {},
+  mounted () {},
   methods: {
     async onLoad () {
       // 1. 请求获取数据
@@ -61,16 +70,22 @@ export default {
         this.finished = true
       }
     },
-    onRefresh () {
-      setTimeout(() => {
-        this.$toast('刷新成功')
-        this.isLoading = false
-      }, 500)
+    async onRefresh () {
+      // 1. 请求获取数据
+      const { data } = await getArticles({
+        channel_id: this.channel.id, // 频道id
+        timestamp: Date.now(), // 时间戳，请求新的推荐数据传当前的时间戳，请求历史推荐传指定的时间戳
+        with_top: 1
+      })
+      // 2. 如果有最新数据，则把数据放到列表的顶部
+      const { results } = data.data
+      this.list.unshift(...results)
+      // 3. 关闭下拉刷新的 loading 状态
+      this.isLoading = false
+      this.$toast(`更新了${results.length}条数据`)
     }
   }
 }
 </script>
 
-<style>
-
-</style>
+<style scoped></style>
