@@ -38,7 +38,7 @@
     position="bottom"
     :style="{ height: '90%' }"
     >
-    <ChannelEdit/>
+    <ChannelEdit :uchannels = "userChannels"/>
     </van-popup>
 <!-- /频道编辑 -->
   </div>

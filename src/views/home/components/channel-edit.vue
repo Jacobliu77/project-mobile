@@ -6,6 +6,15 @@
     </van-cell>
     <van-grid :gutter="10">
         <van-grid-item
+          v-for="channel in uchannels"
+          :key="channel.id"
+          :text="channel.name"
+        />
+    </van-grid>
+     <van-cell title="所有频道" :border="false" style="text-align: left;">
+    </van-cell>
+    <van-grid :gutter="10">
+        <van-grid-item
           v-for="value in 8"
           :key="value"
           text="文字"
@@ -20,6 +29,12 @@
 
 export default {
   name: 'ChannelEdit',
+  props: {
+    uchannels: {
+      type: Array,
+      required: true
+    }
+  },
   data () {
     return {
 
