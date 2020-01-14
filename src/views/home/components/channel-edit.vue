@@ -12,9 +12,10 @@
     </van-cell>
     <van-grid :gutter="10">
         <van-grid-item
-          v-for="channel in uchannels"
+          v-for="(channel,index) in uchannels"
           :key="channel.id"
           :text="channel.name"
+           @click="onUserChannelClick(index)"
         >
          <van-icon class="close-icon" v-show="isEditShow" slot="icon" name="close" />
         </van-grid-item>
@@ -55,6 +56,15 @@ export default {
     },
     onAdd (channel) {
       this.uchannels.push(channel)
+    },
+    onUserChannelClick (index) {
+      if (this.isEditShow) {
+        this.uchannels.splice(index, 1)
+      } else {
+        // 如果是非编辑状态，则切换频道
+        this.$emit('input', index) // 修改激活的标签
+        this.$emit('close') // 关闭弹层
+      }
     }
   },
   created () {
