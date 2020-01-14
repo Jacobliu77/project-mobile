@@ -38,7 +38,9 @@
     position="bottom"
     :style="{ height: '90%' }"
     >
-    <ChannelEdit :uchannels = "userChannels"/>
+    <ChannelEdit :uchannels = "userChannels"
+        v-model="active"
+        @close="isChannelEditShow = false"/>
     </van-popup>
 <!-- /频道编辑 -->
   </div>
@@ -55,7 +57,7 @@ export default {
   },
   data () {
     return {
-      active: 0,
+      active: 0, // 控制激活的标签页
       userChannels: [],
       isShowEdit: false
     }

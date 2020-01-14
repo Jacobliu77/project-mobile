@@ -14,10 +14,14 @@
         <van-grid-item
           v-for="(channel,index) in uchannels"
           :key="channel.id"
-          :text="channel.name"
            @click="onUserChannelClick(index)"
         >
-         <van-icon class="close-icon" v-show="isEditShow" slot="icon" name="close" />
+        <span
+          slot="text"
+          class="text"
+          :class="{ active: value === index }"
+        >{{ channel.name }}</span>
+         <van-icon class="close-icon" v-show="isEditShow && index !== 0" slot="icon" name="close" />
         </van-grid-item>
     </van-grid>
      <van-cell title="所有频道" :border="false" style="text-align: left;">
@@ -41,6 +45,10 @@ export default {
     uchannels: {
       type: Array,
       required: true
+    },
+    value: {
+      type: Number,
+      required: true
     }
   },
   data () {
@@ -58,7 +66,7 @@ export default {
       this.uchannels.push(channel)
     },
     onUserChannelClick (index) {
-      if (this.isEditShow) {
+      if (this.isEditShow && index !== 0) {
         this.uchannels.splice(index, 1)
       } else {
         // 如果是非编辑状态，则切换频道
@@ -108,6 +116,11 @@ export default {
         font-size: 16px;
       }
     }
+  } .text {
+    font-size: 14px;
+  }
+  .active {
+    color: red;
   }
     }
 </style>
