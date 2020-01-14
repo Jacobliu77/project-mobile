@@ -15,7 +15,7 @@
     </van-cell>
     <van-grid :gutter="10">
         <van-grid-item
-          v-for="channel in allChannels"
+          v-for="channel in remainingChannels"
           :key="channel.id"
           :text="channel.name"
         />
@@ -48,6 +48,21 @@ export default {
   },
   created () {
     this.loadAllChannels()
+  },
+  computed: {
+    remainingChannels () {
+      const { allChannels, uchannels } = this
+      // 剩余频道 = 所有频道 - 我的频道
+      const channels = []
+      // 遍历所有频道
+      allChannels.forEach(item => {
+        // 如果我的频道中不包含当前被遍历的频道，则要
+        if (!uchannels.find(c => c.id === item.id)) {
+          channels.push(item)
+        }
+      })
+      return channels
+    }
   }
 }
 
