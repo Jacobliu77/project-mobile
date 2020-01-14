@@ -15,9 +15,9 @@
     </van-cell>
     <van-grid :gutter="10">
         <van-grid-item
-          v-for="value in 8"
-          :key="value"
-          text="文字"
+          v-for="channel in allChannels"
+          :key="channel.id"
+          :text="channel.name"
         />
     </van-grid>
 
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-
+import { getAllChannels } from '@/api/channel'
 export default {
   name: 'ChannelEdit',
   props: {
@@ -37,10 +37,17 @@ export default {
   },
   data () {
     return {
-
+      allChannels: [] // 所有频道
     }
   },
   methods: {
+    async loadAllChannels () {
+      const { data } = await getAllChannels()
+      this.allChannels = data.data.channels
+    }
+  },
+  created () {
+    this.loadAllChannels()
   }
 }
 
@@ -54,7 +61,7 @@ export default {
              .van-grid-item__content--center{
         background-color: #f4f5f6;
         }
-        }
+      }
 
     }
 </style>
